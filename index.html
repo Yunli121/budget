@@ -16,7 +16,23 @@
             --pixel-gray: #f3f4f6;
             --pixel-purple: #c084fc;
             --pixel-red: #ff4757;
-            --shadow: 6px 6px 0px var(--pixel-black);
+            --shadow: 6px 6px 0px var(--pixel-black);{
+        -webkit-tap-highlight-color: transparent; /* 移除手機點擊時的藍色高亮 */
+    }
+
+    input, button {
+        -webkit-appearance: none;  /* 移除 iOS 內建的按鈕陰影和外觀 */
+        border-radius: 0;          /* 移除 iOS 強制加上的圓角 */
+        opacity: 1;                /* 防止字體顏色變淡 */
+        color: #2d2d2d !important; /* 強制文字顯示為你的深灰色 */
+        -webkit-text-fill-color: #2d2d2d; /* 確保 iOS 文字填色正確 */
+    }
+
+    /* 針對日期選擇器的特別修正 */
+    input[type="month"] {
+        color: #2d2d2d !important;
+        background-color: #ffffff;
+    }
         }
 
         body {
