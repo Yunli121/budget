@@ -3,81 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>戰力評估室 - 終極復刻版</title>
+    <title> 👛錢包的生存報告 </title>
+    <link rel="icon" href="https://img.onl/T5Fm2o" type="image/png">
     <style>
         :root {
+            --bg-color: #e0f2fe;
             --pixel-black: #2d2d2d;
             --pixel-white: #ffffff;
             --pixel-blue: #7dd3fc;
-            --pixel-yellow: #fde68a;
+            --pixel-yellow: #fde047;
             --pixel-pink: #fbcfe8;
-            --pixel-purple: #c084fc;
             --pixel-gray: #f3f4f6;
-            --shadow: 5px 5px 0px var(--pixel-black);
+            --pixel-purple: #c084fc;
+            --pixel-red: #ff4757;
+            --shadow: 6px 6px 0px var(--pixel-black);
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent; /* 移除手機點擊時的藍色高亮 */
+        }
+
+        input, button {
+            -webkit-appearance: none;  /* 移除 iOS 內建的按鈕陰影和外觀 */
+            border-radius: 0;          /* 移除 iOS 強制加上的圓角 */
+            opacity: 1;                /* 防止字體顏色變淡 */
+            color: #2d2d2d !important; /* 強制文字顯示為你的深灰色 */
+            -webkit-text-fill-color: #2d2d2d; /* 確保 iOS 文字填色正確 */
+        }
+
+        /* 針對日期選擇器的特別修正 */
+        input[type="month"] {
+            color: #2d2d2d !important;
+            background-color: #ffffff;
         }
 
         body {
-            background-color: #e0f2fe;
-            background-image: radial-gradient(var(--pixel-blue) 1px, transparent 1px);
-            background-size: 24px 24px;
-            font-family: 'PingFang TC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--pixel-blue) 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            font-family: 'PingFang TC', 'Heiti TC', 'Microsoft JhengHei', sans-serif;
             margin: 0; padding: 20px;
-            display: flex; justify-content: center;
+            /* 修正置中排版 */
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            min-height: 100vh;
+            color: var(--pixel-black);
         }
 
-        .main-wrapper { display: flex; gap: 20px; max-width: 1000px; width: 100%; flex-wrap: wrap; justify-content: center; }
+        .main-wrapper { 
+            display: flex; gap: 30px; max-width: 1000px; width: 100%; flex-wrap: wrap; 
+            justify-content: center; align-items: flex-start; 
+        }
 
         .pixel-box {
-            background: var(--pixel-white); border: 4px solid var(--pixel-black);
-            padding: 24px; box-shadow: var(--shadow);
-            flex: 1; min-width: 360px; max-width: 480px; border-radius: 4px; position: relative;
+            background: var(--pixel-white);
+            border: 4px solid var(--pixel-black);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            flex: 1; min-width: 340px;
+            border-radius: 4px;
+            position: relative;
         }
 
-        h2 { text-align: center; background: var(--pixel-black); color: var(--pixel-white); margin: -24px -24px 20px -20px; padding: 12px; font-size: 1.2em; }
-
-        .label-tag {
-            display: inline-block; background: var(--pixel-blue); border: 3px solid var(--pixel-black);
-            padding: 4px 12px; font-weight: bold; margin-bottom: 10px; box-shadow: 3px 3px 0px var(--pixel-black);
+        h2 { 
+            text-align: center; background: var(--pixel-black); color: var(--pixel-white); 
+            margin: -24px -24px 20px -24px; padding: 15px; font-size: 1.4em; 
+            letter-spacing: 2px; border-bottom: 4px solid var(--pixel-black);
         }
-        .purple-tag { background: var(--pixel-purple); color: white; }
 
-        .input-group { background: #f3f4f6; border: 3px solid var(--pixel-black); padding: 15px; margin-bottom: 15px; }
-        input { border: 3px solid var(--pixel-black); padding: 10px; width: 100%; box-sizing: border-box; margin-bottom: 10px; font-family: inherit; font-size: 16px; }
-
-        .method-selector { display: flex; gap: 10px; margin-bottom: 15px; }
-        .method-btn {
-            flex: 1; padding: 10px; border: 3px solid var(--pixel-black); cursor: pointer;
-            background: white; text-align: center; font-weight: bold; box-shadow: 3px 3px 0px var(--pixel-black);
+        .section-label { 
+            display: inline-block; margin: 15px 0 10px; font-weight: 900; 
+            background: var(--pixel-blue); padding: 2px 12px; border: 2px solid var(--pixel-black);
+            box-shadow: 3px 3px 0px var(--pixel-black); transform: rotate(-1deg);
         }
-        .method-btn.active { background: var(--pixel-black); color: white; box-shadow: none; transform: translate(2px, 2px); }
 
-        .btn-action { padding: 12px; border: 3px solid var(--pixel-black); font-weight: bold; cursor: pointer; box-shadow: 4px 4px 0px var(--pixel-black); display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .input-group { background: var(--pixel-gray); border: 3px solid var(--pixel-black); padding: 20px; margin-top: 25px; position: relative; }
+
+        input { 
+            border: 3px solid var(--pixel-black); padding: 12px; font-family: inherit; font-size: 16px; 
+            outline: none; width: 100%; box-sizing: border-box; margin-bottom: 12px; 
+            box-shadow: inset 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .method-selector { display: flex; gap: 12px; margin-bottom: 15px; }
+        .method-btn { 
+            flex: 1; padding: 10px; border: 3px solid var(--pixel-black); 
+            cursor: pointer; background: white; font-size: 0.9em; text-align: center; 
+            font-weight: bold; box-shadow: 4px 4px 0px var(--pixel-black); transition: 0.1s;
+        }
+        .method-btn.active { background: var(--pixel-black); color: white; transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--pixel-black); }
+
+        button { 
+            padding: 10px; border: 3px solid var(--pixel-black); font-weight: 900; 
+            cursor: pointer; box-shadow: 3px 3px 0px var(--pixel-black); font-family: inherit; transition: 0.1s;
+        }
+        button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px var(--pixel-black); }
+
         .btn-blue { background: var(--pixel-blue); flex: 1; }
-        .btn-yellow { background: #fde68a; flex: 1; }
-        .btn-archive { width: 100%; background: var(--pixel-pink); margin-top: 15px; }
-        .btn-action:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0px var(--pixel-black); }
+        .btn-yellow { background: var(--pixel-yellow); flex: 1; }
+        .btn-archive { width: 100%; background: var(--pixel-pink); margin-top: 20px; font-size: 1.1em; }
 
-        /* 清單樣式 */
-        .list-section { margin-bottom: 25px; }
-        .list-title { font-weight: bold; border-bottom: 3px solid var(--pixel-black); padding-bottom: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; font-size: 1.1em; }
-        .task-item { border-bottom: 1px solid #ddd; padding: 12px 0; display: flex; align-items: center; gap: 15px; }
-        .task-img { width: 55px; height: 55px; border: 2px solid #000; object-fit: cover; }
-        .task-info { flex: 1; }
-        .task-meta { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1em; }
-        .task-sub { font-size: 13px; color: #666; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
-        .btn-small { border: 2px solid var(--pixel-black); background: white; padding: 2px 8px; font-size: 12px; cursor: pointer; font-weight: bold; margin-left: 5px; box-shadow: 2px 2px 0px var(--pixel-black); }
-        .btn-del-small { background: #ef4444; color: white; }
+        .summary-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 3px solid var(--pixel-black); gap: 12px; }
+        .item-content { flex: 1; }
+        .item-info { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1em; }
+        .item-img { width: 60px; height: 60px; border: 3px solid var(--pixel-black); object-fit: cover; background: #fff; flex-shrink: 0; }
+        
+        .pay-tag { font-size: 0.75em; padding: 2px 8px; background: var(--pixel-gray); border: 2px solid var(--pixel-black); margin-top: 6px; display: inline-block; font-weight: 900; }
+        .action-btns { display: flex; gap: 5px; margin-top: 5px; }
+        .btn-edit, .btn-view { background: #fff; font-size: 0.7em; padding: 2px 8px; }
+        .btn-del { background: var(--pixel-red); color: white; font-size: 0.7em; padding: 2px 8px; }
 
-        /* 統計黃框 */
-        .total-panel { background: #fef08a; border: 3px solid var(--pixel-black); padding: 15px; box-shadow: 6px 6px 0px var(--pixel-black); }
-        .stat-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; }
-        .remain-line { display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-weight: 900; margin-top: 10px; padding-top: 10px; border-top: 3px solid #000; color: #1d4ed8; }
+        .total-panel { margin-top: 20px; padding: 20px; background: var(--pixel-yellow); border: 4px solid var(--pixel-black); box-shadow: 6px 6px 0px var(--pixel-black); }
+        .stat-sub { font-size: 0.9em; display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: bold;}
+        #remaining-box.warning { background: var(--pixel-red) !important; color: white !important; }
 
-        /* 歷史與明細彈窗 */
-        .history-card { border: 3px solid #000; background: #fff; padding: 15px; margin-top: 15px; box-shadow: 4px 4px 0px #000; }
-        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); display:none; justify-content:center; align-items:center; z-index:999; }
-        .modal-content { background: white; border: 4px solid #000; padding: 25px; width: 90%; max-width: 500px; box-shadow: 8px 8px 0px #000; }
-        .modal-item { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .mission-title { font-size: 1.2em; font-weight: 900; margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 4px solid var(--pixel-black); padding-bottom: 5px; }
+
+        /* 歷史紀錄卡片樣式 */
+        .history-card { 
+            background: #fff; border: 3px solid var(--pixel-black); padding: 15px; margin-top: 15px; 
+            box-shadow: 4px 4px 0px var(--pixel-black); position: relative;
+        }
+
+        /* 彈窗樣式 */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 100;
+        }
+        .modal-content {
+            background: var(--pixel-white); border: 4px solid var(--pixel-black);
+            padding: 24px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;
+            box-shadow: 10px 10px 0px var(--pixel-black);
+        }
     </style>
 </head>
 <body>
@@ -85,204 +141,239 @@
 <div class="main-wrapper">
     <div class="pixel-box">
         <h2>[ 🚀 戰力評估室 🚀 ]</h2>
-        <div class="label-tag">01. 本月初始戰力</div>
-        <div style="display:flex; gap:10px;">
-            <input type="month" id="month-input">
-            <input type="number" id="income-input" placeholder="輸入戰力值" oninput="updateStats()">
+        <span class="section-label">01. 本月初始戰力</span>
+        <div style="display:flex; gap:12px;">
+            <input type="month" id="month-select" style="flex:1.2">
+            <input type="number" id="income" placeholder="輸入戰力值(•̀ᴗ•́)و" style="flex:1">
         </div>
 
         <div class="input-group">
-            <div class="label-tag purple-tag">02. 偵測能量消耗</div>
-            <input type="text" id="name-input" placeholder="這次消耗嗒什麼寶物...">
-            <input type="number" id="amount-input" placeholder="金額 (G)">
-            
+            <span class="section-label" style="margin-top:0; position:absolute; top:-18px; left:15px; background: var(--pixel-purple);color: white;">02. 偵測能量消耗</span>
+            <input type="text" id="item-name" placeholder="這次消耗喏什麼寶物...">
+            <input type="number" id="item-amount" placeholder="金額 (G)">
             <div class="method-selector">
                 <div class="method-btn active" id="m-cash" onclick="setMethod('現金')">💵 現金</div>
                 <div class="method-btn" id="m-card" onclick="setMethod('信用卡')">💳 信用卡</div>
             </div>
-
-            <div style="font-size: 13px; margin-bottom: 10px;">📸 捕捉戰利品照片：<input type="file" id="file-input"></div>
-
-            <div style="display:flex; gap:10px;">
-                <button class="btn-action btn-blue" onclick="addItem('fixed')">🏠 主線生存支出</button>
-                <button class="btn-action btn-yellow" onclick="addItem('extra')">🎁 支線快樂消耗</button>
+            <div style="margin-bottom: 15px;">
+                <label style="font-size: 0.85em; font-weight: 900; display: block; margin-bottom: 5px;">📸 捕捉戰利品照片 (可不傳)：</label>
+                <input type="file" id="item-file" accept="image/*" style="border:none; padding:0; background:none; box-shadow:none;">
+            </div>
+            <div class="btn-row" style="display:flex; gap:12px;">
+                <button class="btn-blue" onclick="processAndTransfer('fixed')">🏠 主線生存支出</button>
+                <button class="btn-yellow" onclick="processAndTransfer('extra')">🎁 支線快樂消耗</button>
             </div>
         </div>
-        <button class="btn-action btn-archive" onclick="archiveMonth()">💾 任務完成，封印帳本</button>
+        <button class="btn-archive" onclick="archiveMonth()">💾 任務完成，封印帳本 </button>
     </div>
 
     <div class="pixel-box">
         <h2>[ 📜 任務清單 ]</h2>
-        
-        <div class="list-section">
-            <div class="list-title" style="color: #2563eb;"><span>🏠 主線任務</span><span id="sub-fixed">$0</span></div>
-            <div id="fixed-items"></div>
-        </div>
-
-        <div class="list-section">
-            <div class="list-title" style="color: #d97706;"><span>🎁 支線任務</span><span id="sub-extra">$0</span></div>
-            <div id="extra-items"></div>
-        </div>
+        <div class="mission-title" style="color: #1d4ed8; border-color: #1d4ed8;">🏠 主線任務 <span id="sub-f">$0</span></div>
+        <div id="list-fixed" style="min-height: 20px; margin-bottom: 20px;"></div>
+        <div class="mission-title" style="color: #b45309; border-color: #b45309;">🎁 支線任務 <span id="sub-e">$0</span></div>
+        <div id="list-extra" style="min-height: 20px; margin-bottom: 20px;"></div>
 
         <div class="total-panel">
-            <div class="stat-line"><span>現金支付小計</span><span id="stat-cash">$0</span></div>
-            <div class="stat-line"><span>信用卡帳單小計</span><span id="stat-card">$0</span></div>
-            <div class="stat-line" style="font-weight:bold; color:#000;"><span>總能量消耗</span><span id="stat-total">$0</span></div>
-            <div class="remain-line">
-                <span>剩餘戰力：</span>
-                <span id="stat-remain">$0</span>
+            <div class="stat-sub"><span>現金支付小計</span><span id="stat-cash">$0</span></div>
+            <div class="stat-sub"><span>信用卡帳單小計</span><span id="stat-card">$0</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:900; border-top:3px solid #000; padding-top:10px; margin-top:10px; font-size:1.1em;">
+                <span>總能量消耗</span><span id="total-expense">$0</span>
+            </div>
+            <div id="remaining-box" style="display:flex; justify-content:space-between; font-size:1.5em; font-weight:900; margin-top:10px; padding: 5px 10px;">
+                <span>剩餘戰力：</span><span id="remaining">$0</span>
             </div>
         </div>
-
-        <div style="margin-top: 30px; border-bottom: 3px solid #000; padding-bottom: 5px; font-weight: bold;">📜 歷史通關紀錄</div>
-        <div id="history-list"></div>
+        <h3 style="border-bottom: 4px solid var(--pixel-black); margin-top: 30px; font-weight: 900;">📜 歷史通關紀錄</h3>
+        <div id="history-log"></div>
     </div>
 </div>
 
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h2 id="modal-title" style="background:#333; margin:-25px -25px 20px -25px;">[ 2026-04 明細 ]</h2>
-        <div class="label-tag" style="background:#7dd3fc;">🏠 主線任務</div>
-        <div id="modal-fixed-list" style="margin-bottom:15px;"></div>
-        <div class="label-tag" style="background:#fde68a;">🎁 支線任務</div>
-        <div id="modal-extra-list"></div>
-        <button class="btn-action" style="width:100%; margin-top:20px; background:#eee;" onclick="closeModal()">關閉視窗</button>
+<div class="modal-overlay" id="modal">
+    <div class="modal-content">
+        <h2 id="modal-title" style="margin-top:-24px;">[ 歷史明細 ]</h2>
+        <div id="modal-body"></div>
+        <button style="width:100%; margin-top:20px; background:var(--pixel-gray);" onclick="closeModal()">關閉視窗</button>
     </div>
 </div>
 
-<canvas id="compCanvas" style="display:none;"></canvas>
+<canvas id="compressCanvas" style="display:none;"></canvas>
 
 <script>
-    let state = { expenses: { fixed: [], extra: [] }, method: '現金' };
-    let history = JSON.parse(localStorage.getItem('pixel_history_v2')) || [];
+    let currentExpenses = { fixed: [], extra: [] };
+    let currentMethod = '現金';
+    let historyData = JSON.parse(localStorage.getItem('pixelBudgetHistory')) || [];
 
     function setMethod(m) {
-        state.method = m;
+        currentMethod = m;
         document.getElementById('m-cash').className = m === '現金' ? 'method-btn active' : 'method-btn';
         document.getElementById('m-card').className = m === '信用卡' ? 'method-btn active' : 'method-btn';
     }
 
-    function addItem(type) {
-        const n = document.getElementById('name-input'), a = document.getElementById('amount-input'), f = document.getElementById('file-input');
-        const amount = parseFloat(a.value) || 0;
-        if(!n.value || amount <= 0) return;
+    function processAndTransfer(type) {
+        const nI = document.getElementById('item-name');
+        const aI = document.getElementById('item-amount');
+        const fI = document.getElementById('item-file');
+        const name = nI.value.trim() || "未知能量消耗";
+        const amount = parseFloat(aI.value) || 0;
+        if (amount <= 0) return;
 
-        const save = (img) => {
-            state.expenses[type].push({ name: n.value, amount, method: state.method, img });
-            n.value = ''; a.value = ''; f.value = '';
-            updateStats();
-        };
-
-        if(f.files[0]) {
-            const reader = new FileReader();
-            reader.readAsDataURL(f.files[0]);
-            reader.onload = (e) => {
-                const img = new Image(); img.src = e.target.result;
-                img.onload = () => {
-                    const cvs = document.getElementById('compCanvas');
-                    const ctx = cvs.getContext('2d');
-                    cvs.width = 100; cvs.height = 100;
-                    ctx.drawImage(img, 0, 0, 100, 100);
-                    save(cvs.toDataURL('image/jpeg', 0.5));
-                };
-            };
-        } else { save(null); }
-    }
-
-    function updateStats() {
-        const income = parseFloat(document.getElementById('income-input').value) || 0;
-        let totals = { fixed: 0, extra: 0, cash: 0, card: 0 };
-
-        const renderList = (type) => {
-            const container = document.getElementById(`${type}-items`);
-            container.innerHTML = '';
-            state.expenses[type].forEach((item, i) => {
-                totals[type] += item.amount;
-                if(item.method === '現金') totals.cash += item.amount; else totals.card += item.amount;
-                
-                container.innerHTML += `
-                    <div class="task-item">
-                        ${item.img ? `<img src="${item.img}" class="task-img">` : ''}
-                        <div class="task-info">
-                            <div class="task-meta"><span>${String(i+1).padStart(2,'0')}</span><span>$${item.amount.toLocaleString()}</span></div>
-                            <div class="task-sub">
-                                <span style="background:#eee; padding:0 4px; border:1px solid #000;">${item.method === '現金' ? '💵 現金' : '💳 信用卡'}</span>
-                                <div style="flex:1"></div>
-                                <button class="btn-small" onclick="editItem('${type}', ${i})">修正</button>
-                                <button class="btn-small btn-del-small" onclick="deleteItem('${type}', ${i})">刪除</button>
-                            </div>
-                        </div>
-                    </div>`;
+        if (fI.files[0]) {
+            compressImage(fI.files[0], (base64Img) => {
+                pushItem(type, name, amount, base64Img);
+                resetInputs(nI, aI, fI);
             });
-        };
-
-        renderList('fixed'); renderList('extra');
-        document.getElementById('sub-fixed').innerText = '$' + totals.fixed.toLocaleString();
-        document.getElementById('sub-extra').innerText = '$' + totals.extra.toLocaleString();
-        document.getElementById('stat-cash').innerText = '$' + totals.cash.toLocaleString();
-        document.getElementById('stat-card').innerText = '$' + totals.card.toLocaleString();
-        const totalExp = totals.fixed + totals.extra;
-        document.getElementById('stat-total').innerText = '$' + totalExp.toLocaleString();
-        document.getElementById('stat-remain').innerText = '$' + (income - totalExp).toLocaleString();
+        } else {
+            pushItem(type, name, amount, null);
+            resetInputs(nI, aI, fI);
+        }
     }
 
-    function deleteItem(t, i) { state.expenses[t].splice(i, 1); updateStats(); }
-    function editItem(t, i) {
-        const item = state.expenses[t][i];
-        document.getElementById('name-input').value = item.name;
-        document.getElementById('amount-input').value = item.amount;
-        setMethod(item.method);
-        deleteItem(t, i);
+    function compressImage(file, callback) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = () => {
+                const canvas = document.getElementById('compressCanvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 150; canvas.height = 150;
+                ctx.drawImage(img, 0, 0, 150, 150);
+                callback(canvas.toDataURL('image/jpeg', 0.7));
+            };
+        };
+    }
+
+    function pushItem(type, name, amount, img) {
+        currentExpenses[type].push({ name, amount, img, method: currentMethod });
+        renderCurrent();
+    }
+
+    function resetInputs(n, a, f) { n.value = ""; a.value = ""; f.value = ""; }
+
+    function renderCurrent() {
+        const fL = document.getElementById('list-fixed');
+        const eL = document.getElementById('list-extra');
+        fL.innerHTML = ""; eL.innerHTML = "";
+        let subF = 0, subE = 0, cashT = 0, cardT = 0;
+        
+        const getItemHTML = (item, type, index, isHistory=false) => {
+            const imgHTML = item.img ? `<img src="${item.img}" class="item-img">` : '';
+            const actionBtns = isHistory ? '' : `
+                <div class="action-btns">
+                    <button class="btn-edit" onclick="editItem('${type}', ${index})">修正</button>
+                    <button class="btn-del" onclick="deleteItem('${type}', ${index})">刪除</button>
+                </div>`;
+            
+            return `
+                <div class="summary-item">
+                    ${imgHTML}
+                    <div class="item-content">
+                        <div class="item-info"><span>${item.name}</span><span>$${item.amount.toLocaleString()}</span></div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="pay-tag">${item.method === '現金' ? '💵 現金' : '💳 信用卡'}</span>
+                            ${actionBtns}
+                        </div>
+                    </div>
+                </div>`;
+        };
+
+        currentExpenses.fixed.forEach((i, idx) => {
+            subF += i.amount;
+            if(i.method === '現金') cashT += i.amount; else cardT += i.amount;
+            fL.innerHTML += getItemHTML(i, 'fixed', idx);
+        });
+        currentExpenses.extra.forEach((i, idx) => {
+            subE += i.amount;
+            if(i.method === '現金') cashT += i.amount; else cardT += i.amount;
+            eL.innerHTML += getItemHTML(i, 'extra', idx);
+        });
+        
+        document.getElementById('sub-f').innerText = `$${subF.toLocaleString()}`;
+        document.getElementById('sub-e').innerText = `$${subE.toLocaleString()}`;
+        document.getElementById('stat-cash').innerText = `$${cashT.toLocaleString()}`;
+        document.getElementById('stat-card').innerText = `$${cardT.toLocaleString()}`;
+        
+        const income = parseFloat(document.getElementById('income').value) || 0;
+        const total = subF + subE;
+        const remain = income - total;
+        document.getElementById('total-expense').innerText = `$${total.toLocaleString()}`;
+        document.getElementById('remaining').innerText = `$${remain.toLocaleString()}${remain < 0 ? ' (💀破產!)' : ''}`;
+        document.getElementById('remaining-box').className = remain < 0 ? 'total-panel warning' : 'total-panel';
     }
 
     function archiveMonth() {
-        const month = document.getElementById('month-input').value;
-        const income = parseFloat(document.getElementById('income-input').value) || 0;
-        const total = state.expenses.fixed.concat(state.expenses.extra).reduce((s,i)=>s+i.amount, 0);
-        if(!month || total === 0) return alert("請輸入月份與支出資料");
-        history.unshift({ month, income, total, details: JSON.parse(JSON.stringify(state.expenses)) });
-        localStorage.setItem('pixel_history_v2', JSON.stringify(history));
-        state.expenses = { fixed: [], extra: [] };
-        updateStats(); renderHistory();
+        const month = document.getElementById('month-select').value;
+        const income = parseFloat(document.getElementById('income').value) || 0;
+        if (currentExpenses.fixed.length === 0 && currentExpenses.extra.length === 0) return alert("沒有數據可以封印！");
+        
+        historyData.unshift({ 
+            month, 
+            income,
+            total: currentExpenses.fixed.concat(currentExpenses.extra).reduce((s,i)=>s+i.amount, 0),
+            details: JSON.parse(JSON.stringify(currentExpenses)) 
+        });
+        
+        localStorage.setItem('pixelBudgetHistory', JSON.stringify(historyData));
+        currentExpenses = { fixed: [], extra: [] };
+        renderCurrent();
+        renderHistory();
+        alert("本月戰報已封印！");
     }
 
     function renderHistory() {
-        document.getElementById('history-list').innerHTML = history.map((h, i) => `
+        document.getElementById('history-log').innerHTML = historyData.map((r, idx) => `
             <div class="history-card">
-                <div style="font-weight:bold; margin-bottom:5px;">📅 ${h.month} 戰報</div>
-                戰力: $${h.income.toLocaleString()} | 消耗: $${h.total.toLocaleString()}<br>
-                結算: <span style="color:#16a34a; font-weight:bold;">$${(h.income - h.total).toLocaleString()}</span>
+                <b>📅 ${r.month} 戰報</b><br>
+                戰力: $${r.income.toLocaleString()} | 消耗: $${r.total.toLocaleString()}<br>
+                結算: <span style="color:${(r.income-r.total) < 0 ? 'red' : 'green'}; font-weight:bold">$${(r.income-r.total).toLocaleString()}</span>
                 <div style="margin-top:10px; display:flex; gap:10px;">
-                    <button class="btn-small" onclick="openModal(${i})">🔍 查看詳情</button>
-                    <button class="btn-small btn-del-small" onclick="deleteHistory(${i})">🗑️ 刪除</button>
+                    <button class="btn-view" onclick="viewDetails(${idx})">🔍 查看詳情</button>
+                    <button class="btn-del" onclick="deleteHistory(${idx})">🗑️ 刪除</button>
                 </div>
-            </div>`).join('') || '尚未有存檔';
+            </div>
+        `).join('');
     }
 
-    function openModal(i) {
-        const h = history[i];
-        document.getElementById('modal-title').innerText = `[ ${h.month} 明細 ]`;
-        const renderModalList = (type, targetId) => {
-            document.getElementById(targetId).innerHTML = h.details[type].map((item, idx) => `
-                <div class="modal-item">
-                    <div style="display:flex; justify-content:space-between;">
-                        <span>${String(idx+1).padStart(2,'0')}</span>
-                        <span>${item.method} | $${item.amount.toLocaleString()}</span>
-                    </div>
-                </div>`).join('') || '<div style="color:#999; font-size:12px;">無消耗資料</div>';
-        };
-        renderModalList('fixed', 'modal-fixed-list');
-        renderModalList('extra', 'modal-extra-list');
-        document.getElementById('modal-overlay').style.display = 'flex';
+    function viewDetails(idx) {
+        const data = historyData[idx];
+        const modalBody = document.getElementById('modal-body');
+        document.getElementById('modal-title').innerText = `[ ${data.month} 明細 ]`;
+        
+        let html = `<div class="section-label">🏠 主線任務</div>`;
+        data.details.fixed.forEach(i => html += getSimpleItemHTML(i));
+        html += `<div class="section-label" style="background:var(--pixel-yellow)">🎁 支線任務</div>`;
+        data.details.extra.forEach(i => html += getSimpleItemHTML(i));
+        
+        modalBody.innerHTML = html;
+        document.getElementById('modal').style.display = 'flex';
     }
 
-    function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
-    function deleteHistory(i) { history.splice(i, 1); localStorage.setItem('pixel_history_v2', JSON.stringify(history)); renderHistory(); }
+    function getSimpleItemHTML(item) {
+        const img = item.img ? `<img src="${item.img}" style="width:40px; height:40px; border:2px solid #000; margin-right:10px;">` : '';
+        return `<div style="display:flex; align-items:center; border-bottom:1px solid #ddd; padding:8px 0;">
+            ${img} <div><b>${item.name}</b><br><small>${item.method} | $${item.amount.toLocaleString()}</small></div>
+        </div>`;
+    }
+
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    function deleteHistory(idx) { if(confirm("確定要刪除這筆封印紀錄嗎？")) { historyData.splice(idx,1); localStorage.setItem('pixelBudgetHistory', JSON.stringify(historyData)); renderHistory(); } }
+    function deleteItem(type, index) { currentExpenses[type].splice(index, 1); renderCurrent(); }
+    function editItem(type, index) {
+        const item = currentExpenses[type][index];
+        document.getElementById('item-name').value = item.name;
+        document.getElementById('item-amount').value = item.amount;
+        setMethod(item.method);
+        deleteItem(type, index);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     window.onload = () => {
         const now = new Date();
-        document.getElementById('month-input').value = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, '0');
+        document.getElementById('month-select').value = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, '0');
         renderHistory();
+        document.getElementById('income').addEventListener('input', renderCurrent);
     };
 </script>
 </body>
