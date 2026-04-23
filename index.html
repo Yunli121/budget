@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 👛錢包的生存報告 </title>
+    <title>👛錢包的生存報告</title>
     <style>
         :root {
             --bg-color: #e0f2fe;
@@ -22,124 +26,70 @@
             background-image: radial-gradient(var(--pixel-blue) 1px, transparent 1px);
             background-size: 24px 24px;
             font-family: 'PingFang TC', 'Heiti TC', 'Microsoft JhengHei', sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center; /* 水平置中 */
-            align-items: flex-start;
-            min-height: 100vh;
-            color: var(--pixel-black);
+            margin: 0; padding: 20px;
+            display: flex; justify-content: center; min-height: 100vh;
         }
 
         .main-wrapper {
-            display: flex;
-            gap: 25px;
-            max-width: 1100px;
-            width: 100%;
-            flex-wrap: wrap;
-            justify-content: center; /* 讓左右兩個箱子在容器內置中 */
+            display: flex; gap: 25px; max-width: 1100px; width: 100%;
+            flex-wrap: wrap; justify-content: center;
         }
 
         .pixel-box {
-            background: var(--pixel-white);
-            border: 4px solid var(--pixel-black);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            flex: 1;
-            min-width: 340px;
-            max-width: 450px; /* 限制最大寬度讓置中更明顯 */
-            border-radius: 4px;
-            margin-bottom: 20px;
+            background: var(--pixel-white); border: 4px solid var(--pixel-black);
+            padding: 24px; box-shadow: var(--shadow);
+            flex: 1; min-width: 340px; max-width: 450px; border-radius: 4px; margin-bottom: 20px;
         }
 
         h2 {
-            text-align: center;
-            background: var(--pixel-black);
-            color: var(--pixel-white);
-            margin: -24px -24px 20px -20px;
-            padding: 12px;
-            font-size: 1.3em;
-            letter-spacing: 2px;
+            text-align: center; background: var(--pixel-black); color: var(--pixel-white);
+            margin: -24px -24px 20px -20px; padding: 12px; font-size: 1.2em;
         }
 
         .label-tag {
-            display: inline-block;
-            background: var(--pixel-blue);
-            border: 3px solid var(--pixel-black);
-            padding: 4px 12px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            box-shadow: 3px 3px 0px var(--pixel-black);
+            display: inline-block; background: var(--pixel-blue); border: 3px solid var(--pixel-black);
+            padding: 4px 12px; font-weight: bold; margin-bottom: 10px; box-shadow: 3px 3px 0px var(--pixel-black);
         }
 
         .purple-tag { background: var(--pixel-purple); color: white; }
 
-        .input-group {
-            background: var(--pixel-gray);
-            border: 3px solid var(--pixel-black);
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+        .input-group { background: var(--pixel-gray); border: 3px solid var(--pixel-black); padding: 15px; margin-bottom: 20px; }
 
-        input, select {
-            border: 3px solid var(--pixel-black);
-            padding: 10px;
-            font-family: inherit;
-            font-size: 15px;
-            outline: none;
-            width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
+        input { border: 3px solid var(--pixel-black); padding: 10px; font-family: inherit; width: 100%; box-sizing: border-box; margin-bottom: 10px; }
 
         .method-selector { display: flex; gap: 10px; margin-bottom: 15px; }
         .method-btn {
-            flex: 1;
-            padding: 8px;
-            border: 3px solid var(--pixel-black);
-            cursor: pointer;
-            background: white;
-            text-align: center;
-            font-weight: bold;
-            box-shadow: 3px 3px 0px var(--pixel-black);
+            flex: 1; padding: 8px; border: 3px solid var(--pixel-black); cursor: pointer;
+            background: white; text-align: center; font-weight: bold; box-shadow: 3px 3px 0px var(--pixel-black);
         }
         .method-btn.active { background: var(--pixel-black); color: white; box-shadow: none; transform: translate(2px, 2px); }
 
-        .action-row { display: flex; gap: 10px; }
         .btn-action {
-            flex: 1;
-            padding: 12px;
-            border: 3px solid var(--pixel-black);
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px var(--pixel-black);
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
+            flex: 1; padding: 12px; border: 3px solid var(--pixel-black); font-weight: bold; cursor: pointer;
+            box-shadow: 4px 4px 0px var(--pixel-black); font-size: 0.9em;
         }
-
         .btn-blue { background: var(--pixel-blue); }
         .btn-yellow { background: #fbbf24; }
-        .btn-archive {
-            width: 100%;
-            background: var(--pixel-pink);
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
+        .btn-archive { width: 100%; background: var(--pixel-pink); margin-top: 10px; }
 
         .btn-action:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--pixel-black); }
 
-        /* 右側列表樣式 */
+        /* 列表樣式 */
         .summary-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 2px dashed #ccc;
-            gap: 12px;
+            display: flex; align-items: center; padding: 10px 0;
+            border-bottom: 2px dashed #ccc; gap: 12px; position: relative;
         }
         .item-img { width: 50px; height: 50px; border: 2px solid #000; object-fit: cover; background: #fff; }
+        
+        .btn-delete {
+            font-size: 10px; color: #ff4444; cursor: pointer; border: 1px solid #ff4444;
+            padding: 2px 4px; margin-left: 10px; background: white;
+        }
+        .btn-edit {
+            font-size: 10px; color: #4444ff; cursor: pointer; border: 1px solid #4444ff;
+            padding: 2px 4px; margin-left: 5px; background: white;
+        }
+
         .total-panel { background: var(--pixel-yellow); border: 3px solid #000; padding: 15px; margin-top: 15px; }
     </style>
 </head>
@@ -148,59 +98,63 @@
 <div class="main-wrapper">
     <div class="pixel-box">
         <h2>[ 🚀 戰力評估室 🚀 ]</h2>
-        
         <div class="label-tag">01. 本月初始戰力</div>
         <div style="display:flex; gap:10px;">
             <input type="month" id="month-select" style="flex:1.2">
-            <input type="number" id="income" placeholder="輸入戰力值(•̀ᴗ•́)و" style="flex:1">
+            <input type="number" id="income" placeholder="輸入戰力值(•̀ᴗ•́)و" style="flex:1" oninput="renderCurrent()">
         </div>
 
         <div class="input-group">
             <div class="label-tag purple-tag">02. 偵測能量消耗</div>
             <input type="text" id="item-name" placeholder="這次消耗喏什麼寶物...">
             <input type="number" id="item-amount" placeholder="金額 (G)">
-            
             <div class="method-selector">
                 <div class="method-btn active" id="m-cash" onclick="setMethod('現金')">💵 現金</div>
                 <div class="method-btn" id="m-card" onclick="setMethod('信用卡')">💳 信用卡</div>
             </div>
-
-            <div style="margin-bottom: 15px; font-size: 0.85em;">
-                📸 捕捉戰利品照片 (可不傳)：
-                <input type="file" id="item-file" accept="image/*" style="border:none; padding:5px 0;">
-            </div>
-
-            <div class="action-row">
+            <div style="margin-bottom: 10px; font-size: 0.8em;">📸 捕捉戰利品照片 (可不傳)：<input type="file" id="item-file" accept="image/*"></div>
+            <div style="display:flex; gap:10px;">
                 <button class="btn-action btn-blue" onclick="processAndTransfer('fixed')">🏠 主線生存支出</button>
                 <button class="btn-action btn-yellow" onclick="processAndTransfer('extra')">🎁 支線快樂消耗</button>
             </div>
         </div>
-
-        <button class="btn-action btn-archive" onclick="archiveMonth()">💾 任務完成，封印帳本</button>
+        <button class="btn-action btn-archive">💾 任務完成，封印帳本</button>
     </div>
 
     <div class="pixel-box">
         <h2>[ 📜 任務清單 ]</h2>
-        
-        <div style="font-weight: bold; margin-bottom: 10px;">🛡️ 已完成主線</div>
-        <div id="list-fixed" style="min-height: 50px;"></div>
-
-        <div style="font-weight: bold; margin: 20px 0 10px;">✨ 已解鎖支線</div>
-        <div id="list-extra" style="min-height: 50px;"></div>
-
+        <div style="font-weight: bold;">🛡️ 已完成主線</div>
+        <div id="list-fixed"></div>
+        <div style="font-weight: bold; margin-top:20px;">✨ 已解鎖支線</div>
+        <div id="list-extra"></div>
         <div class="total-panel">
-            <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>總能量消耗：</span><span id="total-expense">0 G</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:1.2em; font-weight:900; color:#1d4ed8;">
-                <span>剩餘戰力：</span><span id="remaining">0 G</span>
-            </div>
+            <div class="stat-sub"><span>現金支付小計</span><span id="stat-cash">$0</span></div>
+            <div class="stat-sub"><span>信用卡帳單小計</span><span id="stat-card">$0</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:900; border-top:3px solid #000; padding-top:10px; margin-top:10px; font-size:1.1em;">
+<span>總能量消耗：</span><span id="total-expense">0 G</span>
+</div>
+            <div style="display:flex; justify-content:space-between; font-weight:900; color:#1d4ed8; font-size:1.2em;">
+            <div id="remaining-box" style="display:flex; justify-content:space-between; font-size:1.5em; font-weight:900; margin-top:10px; padding: 5px 10px;">
+<span>剩餘戰力：</span><span id="remaining">0 G</span></div>
         </div>
+    </div>
+</div>
+<h3 style="border-bottom: 4px solid var(--pixel-black); margin-top: 30px; font-weight: 900;">📜 歷史通關紀錄</h3>
+        <div id="history-log"></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal-content">
+        <h2 id="modal-title" style="margin-top:-24px;">[ 歷史明細 ]</h2>
+        <div id="modal-body"></div>
+        <button style="width:100%; margin-top:20px; background:var(--pixel-gray);" onclick="closeModal()">關閉視窗</button>
     </div>
 </div>
 
 <canvas id="compressCanvas" style="display:none;"></canvas>
 
 <script>
-    // 邏輯部分保持不變，包含壓縮圖片與分類統計
     let currentExpenses = { fixed: [], extra: [] };
     let currentMethod = '現金';
 
@@ -211,12 +165,9 @@
     }
 
     function processAndTransfer(type) {
-        const nI = document.getElementById('item-name');
-        const aI = document.getElementById('item-amount');
-        const fI = document.getElementById('item-file');
-        const name = nI.value.trim() || "未知物品";
-        const amount = parseFloat(aI.value) || 0;
-        if (amount <= 0) return;
+        const nI = document.getElementById('item-name'), aI = document.getElementById('item-amount'), fI = document.getElementById('item-file');
+        const name = nI.value.trim(), amount = parseFloat(aI.value) || 0;
+        if (!name || amount <= 0) return alert("請輸入名稱與金額！");
 
         if (fI.files[0]) {
             const reader = new FileReader();
@@ -229,53 +180,65 @@
                     const ctx = canvas.getContext('2d');
                     canvas.width = 100; canvas.height = 100;
                     ctx.drawImage(img, 0, 0, 100, 100);
-                    pushItem(type, name, amount, canvas.toDataURL('image/jpeg', 0.6));
-                    resetInputs(nI, aI, fI);
+                    saveItem(type, name, amount, canvas.toDataURL('image/jpeg', 0.6));
+                    nI.value = ""; aI.value = ""; fI.value = "";
                 };
             };
         } else {
-            pushItem(type, name, amount, null);
-            resetInputs(nI, aI, fI);
+            saveItem(type, name, amount, null);
+            nI.value = ""; aI.value = ""; fI.value = "";
         }
     }
 
-    function pushItem(type, name, amount, img) {
+    function saveItem(type, name, amount, img) {
         currentExpenses[type].push({ name, amount, img, method: currentMethod });
         renderCurrent();
     }
 
-    function resetInputs(n, a, f) { n.value = ""; a.value = ""; f.value = ""; }
+    function deleteItem(type, index) {
+        currentExpenses[type].splice(index, 1);
+        renderCurrent();
+    }
+
+    function editItem(type, index) {
+        const item = currentExpenses[type][index];
+        document.getElementById('item-name').value = item.name;
+        document.getElementById('item-amount').value = item.amount;
+        setMethod(item.method);
+        deleteItem(type, index); // 先移除，等使用者再次按發射按鈕
+    }
 
     function renderCurrent() {
-        const fL = document.getElementById('list-fixed');
-        const eL = document.getElementById('list-extra');
+        const fL = document.getElementById('list-fixed'), eL = document.getElementById('list-extra');
         fL.innerHTML = ""; eL.innerHTML = "";
         let total = 0;
 
-        const draw = (item, list) => {
-            total += item.amount;
-            const imgH = item.img ? `<img src="${item.img}" class="item-img">` : `<div class="item-img" style="display:flex;align-items:center;justify-content:center;font-size:10px;color:#999;">NO IMG</div>`;
-            list.innerHTML += `
-                <div class="summary-item">
-                    ${imgH}
-                    <div style="flex:1">
-                        <div style="display:flex;justify-content:space-between"><b>${item.name}</b><span>${item.amount} G</span></div>
-                        <div style="font-size:10px;color:#666">${item.method}</div>
-                    </div>
-                </div>`;
+        const draw = (type, list) => {
+            currentExpenses[type].forEach((item, index) => {
+                total += item.amount;
+                // 檢查是否有圖片，沒有就不顯示 img 標籤
+                const imgTag = item.img ? `<img src="${item.img}" class="item-img">` : "";
+                list.innerHTML += `
+                    <div class="summary-item">
+                        ${imgTag}
+                        <div style="flex:1">
+                            <div style="display:flex;justify-content:space-between">
+                                <b>${item.name}</b>
+                                <span>${item.amount} G</span>
+                            </div>
+                            <div style="font-size:10px; color:#666">${item.method} 
+                                <span class="btn-edit" onclick="editItem('${type}', ${index})">✎ 編輯</span>
+                                <span class="btn-delete" onclick="deleteItem('${type}', ${index})">❌ 刪除</span>
+                            </div>
+                        </div>
+                    </div>`;
+            });
         };
 
-        currentExpenses.fixed.forEach(i => draw(i, fL));
-        currentExpenses.extra.forEach(i => draw(i, eL));
-
+        draw('fixed', fL); draw('extra', eL);
         const income = parseFloat(document.getElementById('income').value) || 0;
         document.getElementById('total-expense').innerText = total + " G";
         document.getElementById('remaining').innerText = (income - total) + " G";
-    }
-
-    function archiveMonth() {
-        alert("存檔功能已啟動！(LocalStorage紀錄已更新)");
-        // 這裡可視需求加入前幾版提到的歷史存檔邏輯
     }
 
     window.onload = () => {
@@ -283,6 +246,5 @@
         document.getElementById('month-select').value = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, '0');
     };
 </script>
-
 </body>
 </html>
