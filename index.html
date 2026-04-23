@@ -20,18 +20,18 @@
         }
 
         * {
-            -webkit-tap-highlight-color: transparent; /* 移除手機點擊時的藍色高亮 */
+            -webkit-tap-highlight-color: transparent; 
+            box-sizing: border-box; /* 確保 padding 不會撐破寬度 */
         }
 
         input, button {
-            -webkit-appearance: none;  /* 移除 iOS 內建的按鈕陰影和外觀 */
-            border-radius: 0;          /* 移除 iOS 強制加上的圓角 */
-            opacity: 1;                /* 防止字體顏色變淡 */
-            color: #2d2d2d !important; /* 強制文字顯示為你的深灰色 */
-            -webkit-text-fill-color: #2d2d2d; /* 確保 iOS 文字填色正確 */
+            -webkit-appearance: none;
+            border-radius: 0;
+            opacity: 1;
+            color: #2d2d2d !important;
+            -webkit-text-fill-color: #2d2d2d;
         }
 
-        /* 針對日期選擇器的特別修正 */
         input[type="month"] {
             color: #2d2d2d !important;
             background-color: #ffffff;
@@ -42,16 +42,20 @@
             background-image: radial-gradient(var(--pixel-blue) 1.5px, transparent 1.5px);
             background-size: 30px 30px;
             font-family: 'PingFang TC', 'Heiti TC', 'Microsoft JhengHei', sans-serif;
-            margin: 0; padding: 20px;
-            /* 修正置中排版 */
+            margin: 0; padding: 15px; /* 稍微縮小邊距 */
             display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
             min-height: 100vh;
             color: var(--pixel-black);
         }
 
         .main-wrapper { 
-            display: flex; gap: 30px; max-width: 1000px; width: 100%; flex-wrap: wrap; 
-            justify-content: center; align-items: flex-start; 
+            display: flex; 
+            gap: 20px; /* 稍微縮小間距 */
+            max-width: 1000px; 
+            width: 100%; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            align-items: flex-start; 
         }
 
         .pixel-box {
@@ -59,7 +63,9 @@
             border: 4px solid var(--pixel-black);
             padding: 24px;
             box-shadow: var(--shadow);
-            flex: 1; min-width: 340px;
+            /* 修正：在手機上優先佔滿寬度 */
+            flex: 1 1 340px; 
+            max-width: 500px; /* 防止在寬螢幕單個盒子太寬 */
             border-radius: 4px;
             position: relative;
         }
@@ -118,13 +124,11 @@
 
         .mission-title { font-size: 1.2em; font-weight: 900; margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 4px solid var(--pixel-black); padding-bottom: 5px; }
 
-        /* 歷史紀錄卡片樣式 */
         .history-card { 
             background: #fff; border: 3px solid var(--pixel-black); padding: 15px; margin-top: 15px; 
             box-shadow: 4px 4px 0px var(--pixel-black); position: relative;
         }
 
-        /* 彈窗樣式 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 100;
