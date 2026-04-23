@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>戰力評估室 - 完美復刻版</title>
+    <title>戰力評估室 - 終極復刻版</title>
     <style>
         :root {
-            --bg-color: #e0f2fe;
             --pixel-black: #2d2d2d;
             --pixel-white: #ffffff;
             --pixel-blue: #7dd3fc;
             --pixel-yellow: #fde68a;
             --pixel-pink: #fbcfe8;
             --pixel-purple: #c084fc;
-            --pixel-red: #ef4444;
+            --pixel-gray: #f3f4f6;
             --shadow: 5px 5px 0px var(--pixel-black);
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: #e0f2fe;
             background-image: radial-gradient(var(--pixel-blue) 1px, transparent 1px);
             background-size: 24px 24px;
             font-family: 'PingFang TC', sans-serif;
@@ -26,12 +25,12 @@
             display: flex; justify-content: center;
         }
 
-        .main-wrapper { display: flex; gap: 25px; max-width: 1100px; width: 100%; flex-wrap: wrap; justify-content: center; }
+        .main-wrapper { display: flex; gap: 20px; max-width: 1000px; width: 100%; flex-wrap: wrap; justify-content: center; }
 
         .pixel-box {
             background: var(--pixel-white); border: 4px solid var(--pixel-black);
             padding: 24px; box-shadow: var(--shadow);
-            flex: 1; min-width: 360px; max-width: 500px; border-radius: 4px; margin-bottom: 20px;
+            flex: 1; min-width: 360px; max-width: 480px; border-radius: 4px; position: relative;
         }
 
         h2 { text-align: center; background: var(--pixel-black); color: var(--pixel-white); margin: -24px -24px 20px -20px; padding: 12px; font-size: 1.2em; }
@@ -42,10 +41,9 @@
         }
         .purple-tag { background: var(--pixel-purple); color: white; }
 
-        .input-group { background: #f3f4f6; border: 3px solid var(--pixel-black); padding: 15px; margin-bottom: 20px; }
-        input { border: 3px solid var(--pixel-black); padding: 10px; width: 100%; box-sizing: border-box; margin-bottom: 10px; font-family: inherit; }
+        .input-group { background: #f3f4f6; border: 3px solid var(--pixel-black); padding: 15px; margin-bottom: 15px; }
+        input { border: 3px solid var(--pixel-black); padding: 10px; width: 100%; box-sizing: border-box; margin-bottom: 10px; font-family: inherit; font-size: 16px; }
 
-        /* 支付方式切換 */
         .method-selector { display: flex; gap: 10px; margin-bottom: 15px; }
         .method-btn {
             flex: 1; padding: 10px; border: 3px solid var(--pixel-black); cursor: pointer;
@@ -55,32 +53,31 @@
 
         .btn-action { padding: 12px; border: 3px solid var(--pixel-black); font-weight: bold; cursor: pointer; box-shadow: 4px 4px 0px var(--pixel-black); display: flex; align-items: center; justify-content: center; gap: 5px; }
         .btn-blue { background: var(--pixel-blue); flex: 1; }
-        .btn-yellow { background: #fbbf24; flex: 1; }
+        .btn-yellow { background: #fde68a; flex: 1; }
         .btn-archive { width: 100%; background: var(--pixel-pink); margin-top: 15px; }
+        .btn-action:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0px var(--pixel-black); }
 
-        /* 任務清單樣式 */
-        .list-section { margin-bottom: 20px; }
-        .list-title { font-weight: bold; border-bottom: 3px solid var(--pixel-black); padding-bottom: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; }
-        .task-item { border-bottom: 2px solid var(--pixel-black); padding: 10px 0; display: flex; align-items: center; gap: 12px; }
-        .task-img { width: 50px; height: 50px; border: 2px solid #000; object-fit: cover; background: #eee; image-rendering: pixelated; }
+        /* 清單樣式 */
+        .list-section { margin-bottom: 25px; }
+        .list-title { font-weight: bold; border-bottom: 3px solid var(--pixel-black); padding-bottom: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; font-size: 1.1em; }
+        .task-item { border-bottom: 1px solid #ddd; padding: 12px 0; display: flex; align-items: center; gap: 15px; }
+        .task-img { width: 55px; height: 55px; border: 2px solid #000; object-fit: cover; }
         .task-info { flex: 1; }
-        .task-meta { display: flex; justify-content: space-between; font-weight: bold; }
-        .task-tools { display: flex; gap: 5px; margin-top: 5px; }
-        .tool-btn { font-size: 12px; padding: 2px 8px; border: 2px solid var(--pixel-black); cursor: pointer; background: white; font-weight: bold; }
-        .btn-del { background: var(--pixel-red); color: white; }
+        .task-meta { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1em; }
+        .task-sub { font-size: 13px; color: #666; margin-top: 4px; display: flex; align-items: center; gap: 5px; }
+        .btn-small { border: 2px solid var(--pixel-black); background: white; padding: 2px 8px; font-size: 12px; cursor: pointer; font-weight: bold; margin-left: 5px; box-shadow: 2px 2px 0px var(--pixel-black); }
+        .btn-del-small { background: #ef4444; color: white; }
 
-        /* 統計面板 */
-        .total-panel { background: #fef08a; border: 3px solid var(--pixel-black); padding: 15px; }
-        .remaining-box { border: 4px solid var(--pixel-black); background: #fde68a; padding: 10px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 1.4em; font-weight: 900; box-shadow: 4px 4px 0px var(--pixel-black); }
+        /* 統計黃框 */
+        .total-panel { background: #fef08a; border: 3px solid var(--pixel-black); padding: 15px; box-shadow: 6px 6px 0px var(--pixel-black); }
+        .stat-line { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; }
+        .remain-line { display: flex; justify-content: space-between; align-items: center; font-size: 1.5em; font-weight: 900; margin-top: 10px; padding-top: 10px; border-top: 3px solid #000; color: #1d4ed8; }
 
-        /* 歷史紀錄卡片 */
-        .history-section { margin-top: 30px; }
-        .history-card { border: 3px solid var(--pixel-black); background: white; padding: 15px; margin-bottom: 15px; box-shadow: 4px 4px 0px var(--pixel-black); }
-        .history-card h4 { margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px; }
-        .history-tools { display: flex; gap: 10px; margin-top: 12px; }
-
-        /* 彈窗 */
-        #detail-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 100; }
+        /* 歷史與明細彈窗 */
+        .history-card { border: 3px solid #000; background: #fff; padding: 15px; margin-top: 15px; box-shadow: 4px 4px 0px #000; }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); display:none; justify-content:center; align-items:center; z-index:999; }
+        .modal-content { background: white; border: 4px solid #000; padding: 25px; width: 90%; max-width: 500px; box-shadow: 8px 8px 0px #000; }
+        .modal-item { padding: 10px 0; border-bottom: 1px solid #eee; }
     </style>
 </head>
 <body>
@@ -91,7 +88,7 @@
         <div class="label-tag">01. 本月初始戰力</div>
         <div style="display:flex; gap:10px;">
             <input type="month" id="month-input">
-            <input type="number" id="income-input" placeholder="28000">
+            <input type="number" id="income-input" placeholder="輸入戰力值" oninput="updateStats()">
         </div>
 
         <div class="input-group">
@@ -104,14 +101,14 @@
                 <div class="method-btn" id="m-card" onclick="setMethod('信用卡')">💳 信用卡</div>
             </div>
 
-            <div style="font-size: 13px; margin-bottom: 10px;">📸 捕捉戰利品照片 (可不傳)：<br><input type="file" id="file-input" accept="image/*"></div>
+            <div style="font-size: 13px; margin-bottom: 10px;">📸 捕捉戰利品照片：<input type="file" id="file-input"></div>
 
             <div style="display:flex; gap:10px;">
                 <button class="btn-action btn-blue" onclick="addItem('fixed')">🏠 主線生存支出</button>
                 <button class="btn-action btn-yellow" onclick="addItem('extra')">🎁 支線快樂消耗</button>
             </div>
         </div>
-        <button class="btn-action btn-archive" onclick="archiveData()">💾 任務完成，封印帳本</button>
+        <button class="btn-action btn-archive" onclick="archiveMonth()">💾 任務完成，封印帳本</button>
     </div>
 
     <div class="pixel-box">
@@ -128,28 +125,28 @@
         </div>
 
         <div class="total-panel">
-            <div style="display:flex; justify-content:space-between; font-size:14px;"><span>現金支付小計</span><span id="stat-cash">$0</span></div>
-            <div style="display:flex; justify-content:space-between; font-size:14px;"><span>信用卡帳單小計</span><span id="stat-card">$0</span></div>
-            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-top:5px; border-top:1px solid #000; padding-top:5px;"><span>總能量消耗</span><span id="stat-total">$0</span></div>
-            
-            <div class="remaining-box">
-                <span style="color:#1d4ed8">剩餘戰力：</span>
+            <div class="stat-line"><span>現金支付小計</span><span id="stat-cash">$0</span></div>
+            <div class="stat-line"><span>信用卡帳單小計</span><span id="stat-card">$0</span></div>
+            <div class="stat-line" style="font-weight:bold; color:#000;"><span>總能量消耗</span><span id="stat-total">$0</span></div>
+            <div class="remain-line">
+                <span>剩餘戰力：</span>
                 <span id="stat-remain">$0</span>
             </div>
         </div>
 
-        <div class="history-section">
-            <div class="list-title"><span>📜 歷史通關紀錄</span></div>
-            <div id="history-list"></div>
-        </div>
+        <div style="margin-top: 30px; border-bottom: 3px solid #000; padding-bottom: 5px; font-weight: bold;">📜 歷史通關紀錄</div>
+        <div id="history-list"></div>
     </div>
 </div>
 
-<div id="detail-modal" onclick="this.style.display='none'">
-    <div class="pixel-box" style="max-height:80vh; overflow-y:auto;" onclick="event.stopPropagation()">
-        <h2 id="modal-title">詳情</h2>
-        <div id="modal-content"></div>
-        <button class="btn-action btn-blue" style="width:100%; margin-top:15px;" onclick="document.getElementById('detail-modal').style.display='none'">關閉</button>
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h2 id="modal-title" style="background:#333; margin:-25px -25px 20px -25px;">[ 2026-04 明細 ]</h2>
+        <div class="label-tag" style="background:#7dd3fc;">🏠 主線任務</div>
+        <div id="modal-fixed-list" style="margin-bottom:15px;"></div>
+        <div class="label-tag" style="background:#fde68a;">🎁 支線任務</div>
+        <div id="modal-extra-list"></div>
+        <button class="btn-action" style="width:100%; margin-top:20px; background:#eee;" onclick="closeModal()">關閉視窗</button>
     </div>
 </div>
 
@@ -157,7 +154,7 @@
 
 <script>
     let state = { expenses: { fixed: [], extra: [] }, method: '現金' };
-    let history = JSON.parse(localStorage.getItem('pixel_history')) || [];
+    let history = JSON.parse(localStorage.getItem('pixel_history_v2')) || [];
 
     function setMethod(m) {
         state.method = m;
@@ -167,12 +164,13 @@
 
     function addItem(type) {
         const n = document.getElementById('name-input'), a = document.getElementById('amount-input'), f = document.getElementById('file-input');
-        if(!n.value || !a.value) return;
+        const amount = parseFloat(a.value) || 0;
+        if(!n.value || amount <= 0) return;
 
-        const pushData = (img) => {
-            state.expenses[type].push({ name: n.value, amount: parseFloat(a.value), method: state.method, img });
+        const save = (img) => {
+            state.expenses[type].push({ name: n.value, amount, method: state.method, img });
             n.value = ''; a.value = ''; f.value = '';
-            render();
+            updateStats();
         };
 
         if(f.files[0]) {
@@ -185,17 +183,17 @@
                     const ctx = cvs.getContext('2d');
                     cvs.width = 100; cvs.height = 100;
                     ctx.drawImage(img, 0, 0, 100, 100);
-                    pushData(cvs.toDataURL('image/jpeg', 0.5));
+                    save(cvs.toDataURL('image/jpeg', 0.5));
                 };
             };
-        } else { pushData(null); }
+        } else { save(null); }
     }
 
-    function render() {
+    function updateStats() {
         const income = parseFloat(document.getElementById('income-input').value) || 0;
         let totals = { fixed: 0, extra: 0, cash: 0, card: 0 };
 
-        const makeHtml = (type) => {
+        const renderList = (type) => {
             const container = document.getElementById(`${type}-items`);
             container.innerHTML = '';
             state.expenses[type].forEach((item, i) => {
@@ -206,18 +204,19 @@
                     <div class="task-item">
                         ${item.img ? `<img src="${item.img}" class="task-img">` : ''}
                         <div class="task-info">
-                            <div class="task-meta"><span>${item.name}</span><span>$${item.amount.toLocaleString()}</span></div>
-                            <div style="font-size:12px; background:#eee; display:inline-block; padding:0 4px; border:1px solid #000;">${item.method === '現金' ? '💵 現金' : '💳 信用卡'}</div>
-                            <div class="task-tools">
-                                <span class="tool-btn" onclick="editItem('${type}', ${i})">修正</span>
-                                <span class="tool-btn btn-del" onclick="deleteItem('${type}', ${i})">刪除</span>
+                            <div class="task-meta"><span>${String(i+1).padStart(2,'0')}</span><span>$${item.amount.toLocaleString()}</span></div>
+                            <div class="task-sub">
+                                <span style="background:#eee; padding:0 4px; border:1px solid #000;">${item.method === '現金' ? '💵 現金' : '💳 信用卡'}</span>
+                                <div style="flex:1"></div>
+                                <button class="btn-small" onclick="editItem('${type}', ${i})">修正</button>
+                                <button class="btn-small btn-del-small" onclick="deleteItem('${type}', ${i})">刪除</button>
                             </div>
                         </div>
                     </div>`;
             });
         };
 
-        makeHtml('fixed'); makeHtml('extra');
+        renderList('fixed'); renderList('extra');
         document.getElementById('sub-fixed').innerText = '$' + totals.fixed.toLocaleString();
         document.getElementById('sub-extra').innerText = '$' + totals.extra.toLocaleString();
         document.getElementById('stat-cash').innerText = '$' + totals.cash.toLocaleString();
@@ -227,57 +226,58 @@
         document.getElementById('stat-remain').innerText = '$' + (income - totalExp).toLocaleString();
     }
 
-    function deleteItem(type, i) { state.expenses[type].splice(i, 1); render(); }
-    function editItem(type, i) {
-        const item = state.expenses[type][i];
+    function deleteItem(t, i) { state.expenses[t].splice(i, 1); updateStats(); }
+    function editItem(t, i) {
+        const item = state.expenses[t][i];
         document.getElementById('name-input').value = item.name;
         document.getElementById('amount-input').value = item.amount;
         setMethod(item.method);
-        deleteItem(type, i);
+        deleteItem(t, i);
     }
 
-    function archiveData() {
+    function archiveMonth() {
         const month = document.getElementById('month-input').value;
         const income = parseFloat(document.getElementById('income-input').value) || 0;
         const total = state.expenses.fixed.concat(state.expenses.extra).reduce((s,i)=>s+i.amount, 0);
-        if(!month || total === 0) return alert("請填寫月份及支出");
-
+        if(!month || total === 0) return alert("請輸入月份與支出資料");
         history.unshift({ month, income, total, details: JSON.parse(JSON.stringify(state.expenses)) });
-        localStorage.setItem('pixel_history', JSON.stringify(history));
+        localStorage.setItem('pixel_history_v2', JSON.stringify(history));
         state.expenses = { fixed: [], extra: [] };
-        render(); renderHistory();
+        updateStats(); renderHistory();
     }
 
     function renderHistory() {
-        const hList = document.getElementById('history-list');
-        hList.innerHTML = history.map((h, i) => `
+        document.getElementById('history-list').innerHTML = history.map((h, i) => `
             <div class="history-card">
-                <h4>📅 ${h.month} 戰報</h4>
+                <div style="font-weight:bold; margin-bottom:5px;">📅 ${h.month} 戰報</div>
                 戰力: $${h.income.toLocaleString()} | 消耗: $${h.total.toLocaleString()}<br>
                 結算: <span style="color:#16a34a; font-weight:bold;">$${(h.income - h.total).toLocaleString()}</span>
-                <div class="history-tools">
-                    <button class="tool-btn" onclick="showDetail(${i})">🔍 查看詳情</button>
-                    <button class="tool-btn btn-del" onclick="deleteHistory(${i})">🗑️ 刪除</button>
+                <div style="margin-top:10px; display:flex; gap:10px;">
+                    <button class="btn-small" onclick="openModal(${i})">🔍 查看詳情</button>
+                    <button class="btn-small btn-del-small" onclick="deleteHistory(${i})">🗑️ 刪除</button>
                 </div>
-            </div>
-        `).join('') || '尚未有通關紀錄';
+            </div>`).join('') || '尚未有存檔';
     }
 
-    function showDetail(i) {
+    function openModal(i) {
         const h = history[i];
-        document.getElementById('modal-title').innerText = `${h.month} 消耗詳情`;
-        let html = '';
-        const all = h.details.fixed.concat(h.details.extra);
-        all.forEach(item => {
-            html += `<div style="display:flex; justify-content:space-between; border-bottom:1px dashed #000; padding:5px 0;">
-                <span>${item.name} (${item.method})</span><span>$${item.amount.toLocaleString()}</span>
-            </div>`;
-        });
-        document.getElementById('modal-content').innerHTML = html;
-        document.getElementById('detail-modal').style.display = 'flex';
+        document.getElementById('modal-title').innerText = `[ ${h.month} 明細 ]`;
+        const renderModalList = (type, targetId) => {
+            document.getElementById(targetId).innerHTML = h.details[type].map((item, idx) => `
+                <div class="modal-item">
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>${String(idx+1).padStart(2,'0')}</span>
+                        <span>${item.method} | $${item.amount.toLocaleString()}</span>
+                    </div>
+                </div>`).join('') || '<div style="color:#999; font-size:12px;">無消耗資料</div>';
+        };
+        renderModalList('fixed', 'modal-fixed-list');
+        renderModalList('extra', 'modal-extra-list');
+        document.getElementById('modal-overlay').style.display = 'flex';
     }
 
-    function deleteHistory(i) { history.splice(i, 1); localStorage.setItem('pixel_history', JSON.stringify(history)); renderHistory(); }
+    function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+    function deleteHistory(i) { history.splice(i, 1); localStorage.setItem('pixel_history_v2', JSON.stringify(history)); renderHistory(); }
 
     window.onload = () => {
         const now = new Date();
